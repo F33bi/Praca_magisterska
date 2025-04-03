@@ -33,3 +33,5 @@ Klasyfikacja szeregów czasowych polega na przypisywaniu szeregów do wcześniej
 Pakiet w R: TSclust​
 Funkcja: diss()​
 Opis: Pakiet TSclust oferuje funkcję diss(), obliczającą różne miary odległości między szeregami czasowymi, co jest przydatne w klasyfikacji.
+
+Dodatkowy pakiet TSrepr: "Mining Time Series Data"
