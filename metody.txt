@@ -1,19 +1,22 @@
-Dynamic Time Warping (DTW), "A Review on Time Series Data Mining"9-10
-Metoda DTW pozwala na nieliniowe dopasowanie dwóch szeregów czasowych poprzez minimalizację różnic między nimi, nawet jeśli występują różnice w tempie zmian.
-Pakiet w R: dtw​
-Funkcja: dtw()​
-Opis: Pakiet dtw dostarcza kompleksową implementację algorytmów DTW, umożliwiając obliczanie optymalnego dopasowania między punktami dwóch szeregów czasowych. ​
+Fast Dynamic Time Warping (FastDTW), "A Review on Time Series Data Mining"5
+Algorytm DTW, który zamiast wartości czasowych wykorzystuje ich pochodne, zwiększając odporność na przesunięcia wartości.
+BRAK IMPLEMENTACJI W R
+
+Improved Derivative Dynamic Time Warping (IDDTW) "A Review on Time Series Data Mining"5
+​Wariant DTW wykorzystujący pochodne szeregów czasowych, aby poprawić dopasowanie w kontekście analizy dynamicznych zmian.
+Pakiet w R: IncDTW
+Funkcja: idtw()
 
 Symbolic Aggregate approXimation (SAX) "A Review on Time Series Data Mining"13
 Metoda SAX konwertuje numeryczny szereg czasowy na symboliczną reprezentację, co pozwala na redukcję wymiarowości i uproszczenie analizy.
-Pakiet w R: seewave​
-Funkcja: SAX()​
-Opis: Funkcja SAX() w pakiecie seewave umożliwia przekształcenie numerycznego szeregu czasowego w sekwencję liter o określonej długości. ​
+Pakiet w R: TSclust​
+Funkcja: convert.to.SAX.symbol()
+Opis: Funkcja umożliwia przekształcenie numerycznego szeregu czasowego w sekwencję liter o określonej długości. ​
 
 Piecewise Aggregate Approximation (PAA) "Mining Time Series Data"5
 PAA to technika redukcji wymiarowości, która dzieli szereg czasowy na segmenty i zastępuje każdy segment jego średnią wartością.
 Pakiet w R: TSclust​
-Funkcja: paa()​
+Funkcja: PAA()​
 Opis: Pakiet TSclust oferuje funkcję paa(), realizującą Piecewise Aggregate Approximation dla szeregów czasowych.
 
 Discrete Wavelet Transform (DWT) "Mining Time Series Data"6-7
@@ -33,5 +36,3 @@ Klasyfikacja szeregów czasowych polega na przypisywaniu szeregów do wcześniej
 Pakiet w R: TSclust​
 Funkcja: diss()​
 Opis: Pakiet TSclust oferuje funkcję diss(), obliczającą różne miary odległości między szeregami czasowymi, co jest przydatne w klasyfikacji.
-
-Dodatkowy pakiet TSrepr: "Mining Time Series Data"
