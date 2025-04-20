@@ -1,0 +1,2 @@
+TSClust - an r package for time series clustering - journal of statistical software
+disatance measures for time series in r: THE TSDIST PACKAGE - research gate

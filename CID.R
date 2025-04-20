@@ -1,3 +1,4 @@
+# prawdopodobniew nie potrzebne, lepiej funkcją diss - {tsclust}
 library(TSclust)
 
 data = read.table('/Volumes/NO NAME/Magisterka/Computers/Computers_TRAIN.txt')
@@ -19,3 +20,9 @@ time.in.min = 2.370282
 
 setwd('/Volumes/NO NAME/Magisterka/wd')
 save(diss.matrix.CID, time.in.min, file = "CID.RData")
+
+a = diss(data.train[, -1], "CID") # domyślnie Euklides
+class(a)
+fviz_dist(a, order = F)
+fviz_dist(a, order = T)
+

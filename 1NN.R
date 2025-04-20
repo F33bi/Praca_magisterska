@@ -1,48 +1,44 @@
+library(TSdist)
+library(caret)
+
+# dane znormalizowane
 data.train = read.table('/Volumes/NO NAME/Magisterka/Dane/Computers/Computers_TRAIN.txt')
 data.test = read.table('/Volumes/NO NAME/Magisterka/Dane/Computers/Computers_TEST.txt')
 
-# ------------------------------------------------------------------------------
-start = Sys.time()
-predicted.euclidean = OneNN(data.train[, -1], data.train[, 1], 
-                                    data.test[, -1], data.test[, 1], 
-                                    distance = "euclidean")
-time.euclidean = Sys.time() - start
-accuracy.euclidean = sum(predicted.euclidean$classes == data.test[, 1])/length(data.test[, 1])
+My.oneNN = function(train, train.classes, test, test.classes, distance, ...) {
+  start = Sys.time()
+  predicted = OneNN(train, train.classes, test, test.classes, distance, ...)
+  time = Sys.time() - start
+  
+  conf.matrix = confusionMatrix(as.factor(predicted$classes), as.factor(test.classes))
+  
+  list(predicted = predicted$classes,
+       time = time,
+       accuracy = as.numeric(conf.matrix$overall[1]),
+       sensitivity = as.numeric(conf.matrix$byClass[1]),
+       specificity = as.numeric(conf.matrix$byClass[2]),
+       precision = as.numeric(conf.matrix$byClass[5]),
+       recall = as.numeric(conf.matrix$byClass[6]))
+}
 
-# ------------------------------------------------------------------------------
-start = Sys.time()
-predicted.ccor = OneNN(data.train[, -1], data.train[, 1], 
-                               data.test[, -1], data.test[, 1], 
-                               distance = "ccor")
-time.ccor = Sys.time() - start
-accuracy.ccor = sum(predicted.ccor$classes == data.test[, 1])/length(data.test[, 1])
-
-# ------------------------------------------------------------------------------
-start = Sys.time()
-predicted.sax = OneNN(data.train[, -1], data.train[, 1], 
-                       data.test[, -1], data.test[, 1], 
-                       distance = "mindist.sax", w = 5)
-time.sax = Sys.time() - start
-accuracy.sax = sum(predicted.sax$classes == data.test[, 1])/length(data.test[, 1])
-
-# ------------------------------------------------------------------------------
-start = Sys.time()
-# step.pattern = symmetric1, symmetric2, asymmetric
-# dist.method = "Euclidean", "correlation"
-predicted.dtw = OneNN(data.train[, -1], data.train[, 1], 
-                      data.test[, -1], data.test[, 1], 
-                      distance = "dtw")
-time.dtw = Sys.time() - start
-accuracy.dtw = sum(predicted.dtw$classes == data.test[, 1])/length(data.test[, 1])
-
-list.euclidean = list(predicted = predicted.euclidean, time = time.euclidean, 
-                      accuracy = accuracy.euclidean)
-list.ccor = list(predicted = predicted.ccor, time = time.ccor, 
-                      accuracy = accuracy.ccor)
-list.sax = list(predicted = predicted.sax, time = time.sax, 
-                accuracy = accuracy.sax)
-list.dtw = list(predicted = predicted.dtw, time = time.dtw, 
-                accuracy = accuracy.dtw)
+SAX = My.oneNN(data.train[, -1], data.train[, 1], data.test[, -1], data.test[, 1], 
+               "mindist.sax", w = 2)
+Euclidean = My.oneNN(data.train[, -1], data.train[, 1], data.test[, -1], data.test[, 1], 
+                     "euclidean")
+CCor = My.oneNN(data.train[, -1], data.train[, 1], data.test[, -1], data.test[, 1], 
+                "ccor")
+DTW = My.oneNN(data.train[, -1], data.train[, 1], data.test[, -1], data.test[, 1], 
+               "dtw")
+ACF = My.oneNN(data.train[, -1], data.train[, 1], data.test[, -1], data.test[, 1], 
+               "acf", lag.max = 5)
+CID = My.oneNN(data.train[, -1], data.train[, 1], data.test[, -1], data.test[, 1], 
+               "cid")
 
 setwd('/Volumes/NO NAME/Magisterka/wd')
-save(data.train, data.test, list.euclidean, list.ccor, list.sax, list.dtw, file = "1NN.RData")
+save(data.train, data.test, Euclidean, CCor, SAX, DTW, ACF, CID,  My.oneNN, file = "1NN.RData")
+
+# wizulizacja macierzy odmienności dist() - {factoextra}, raczej w innym pliku
+# spisać pytania badawcze
+
+# step.pattern = symmetric1, symmetric2, asymmetric
+# dist.method = "Euclidean", "correlation"
