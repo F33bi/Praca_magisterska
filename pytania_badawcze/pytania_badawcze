@@ -1,4 +1,0 @@
-1. Jak wybór odległości w metodzie 1NN wpływa na dokładność predykcji
-2. Czy rozpatrywane metody (SAX, Euclidean, CCor, DTW, ACF, CID) są wrażliwe na podział danych na zbiór uczący i testowy w algorytmie 1NN
-3. Czy powyższe metody są wrażliwe na wybór parametrów
-4. Czy początkowe transformacje szeregu czasowego (Normalizacja, wygładzanie, transformacja B-C) mają istotny wpływ na dokładność predykcji
